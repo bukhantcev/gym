@@ -39,7 +39,7 @@
   <p class="block">Повторений - {{tren.povtor2}}</p>
   <p class="block">Вес - {% if tren.level == '0' %}{{tren.max_weight|tren1}}{% elif tren.level == '1' %}
     {{tren.max_weight|tren2}}{% elif tren.level == '2' %}{{tren.max_weight|tren3}}{% else %}{{tren.max_weight}}{% endif %}</p><br><br>
-  <select id="{{tren.id}}" name="status" onclick="Status(this.id)" class="form-select" aria-label="Default select example">
+  <select id="{{tren.id}}" name="status" onchange="Status(this.id)" class="form-select" aria-label="Default select example">
     {% if tren.status == '0' %}<option selected value="0">Не выполнено</option>{% elif tren.status == '1' %}<option selected value="1">Выполнено</option>{% endif %}
 
     {% if tren.status == '0' %}<option value="1">Выполнено</option>{% elif tren.status == '1' %}<option value="0">Не выполнено</option>{% endif %}
