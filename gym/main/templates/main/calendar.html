@@ -1,0 +1,196 @@
+{% extends 'main/main.html' %}
+{% load my_filters %}
+
+
+{% block main %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col order-last order-sm-first calendar-header-title">
+            <a href="#" style="text-decoration: none;" onclick="Today()">
+                <h1 class="title-cal">Календарь</h1>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div class="sl-r"></div>
+<main id="main-calendar" class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col d-flex justify-content-center" style="margin-top: 2rem;">
+                <!-------------------MONTH-BUTTON----------->
+                <select name="month-swith" id="month-swith_id" style="margin-right: 1rem;"
+                    onchange="MonthSwith(this.value)" class="form-select form-select-castom btn-primary"
+                    aria-label="Default select example">
+                    {% for month in months %}
+
+                    {% if month.month_index == current_month %}
+                    <option value="{{month.month_index}}" selected>
+                        <p class="text-sections">{{month.month_name}}</p>
+                    </option>
+                    {% else %}
+                    <option value="{{month.month_index}}">
+                        <p class="text-sections">{{month.month_name}}</p>
+                    </option>
+
+                    {% endif %}
+                    {% endfor %}
+
+
+                </select>
+                <!-------------------MONTH-BUTTON----------->
+
+
+                <!-------------------YEAR-BUTTON----------->
+                <select name="year-swith" id="year-swith_id" onchange="YearSwith(this.value)"
+                    class="form-select form-select-castom form-select-castom-small btn-primary"
+                    aria-label="Default select example">
+                    {% for year in years %}
+
+                    {% if year == current_year %}
+                    <option value="{{ year }}" selected>
+                        <p class="text-sections">{{ year }}</p>
+                    </option>
+                    {% else %}
+                    <option value="{{year}}">
+                        <p class="text-sections">{{year}}</p>
+                    </option>
+
+                    {% endif %}
+                    {% endfor %}
+
+
+                </select>
+                <!-------------------YEAR-BUTTON----------->
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="swithMonthLink" style="display: none;">sdvdsfgdsffg</a>
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-6">
+            {% for day in fill_cal %}
+            <div class="col" id="day-{{day.date}}" style="margin-bottom: 2rem;">
+                <div class="card" style="height: 20rem; margin-top: 2rem; min-width: 200px;">
+                    {% if day.date == today.date %}
+                    <div class="header card-headder headeer-calendar headeer-calendar-today" id="today">
+                        <p class="text-sections text-sections-zapisi">{{day.date}}<br>{{day.date|weekday}}</p>
+                    </div>
+                    {% else %}
+                    <div class="header card-headder headeer-calendar">
+                        <p class="text-sections text-sections-zapisi">{{day.date}}<br>{{day.date|weekday}}</p>
+                    </div>
+                    {% endif %}
+                    <div class="main card-body main-calendar">
+                        <form class="w-100" action="" method="post" style="text-align: center;">
+                            {% csrf_token %}
+                            
+                          
+
+
+                                        <button id="addTren-{{day.date}}" name="addTren"
+                                            value="{{day.date|date:'Y-m-d'}}" type="submit" class="btn btn-add"><i
+                                                class="fa-sharp fa-solid fa-plus fa-2xl"></i></button><br>
+
+                                        {% for tren in trenya %}
+                                        {% if day.date == tren.date %}
+                                        <a
+                                            href="{% url 'uprs' %}?addUpr={{day.date|date:'Y-m-d'}}&group={{tren.group}}&id={{tren.id}}"><button
+                                                id="{{tren.group}}" name="addUpr" value="{{tren.date}}" type="button"
+                                                class="btn btn-calendar">
+                                                {{tren.group}}
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button class="btn btn-delete" type="button" id="delTren-{{day.date}}" value="delTrenOn-{{day.date}}"
+                                            style="display: none;" onclick="DeleteVisible(this.value)"><i
+                                                class="fa-solid fa-trash fa-2xl" style="color: #a73535;"></i></button>
+                                        <button id="delTrenOn-{{day.date}}" name="delTren"
+                                            value="{{day.date|date:'Y-m-d'}}" type="submit" class="btn btn-delete"
+                                            style="display: none;">Удалить?</button><br>
+                                            
+
+                           
+                        
+                        <script>
+
+                            document.getElementById('addTren-{{day.date}}').setAttribute('style', 'display: none');
+                            document.getElementById('delTren-{{day.date}}').setAttribute('style', '');
+
+
+
+                        </script>
+                        <script>
+                            function DeleteVisible(id) {
+                                document.getElementById(id).setAttribute('style', 'background-color: red;');
+                                setTimeout(() => {
+                                    document.getElementById(id).setAttribute('style', 'display: none;');
+                                }, 3000)
+                            }
+                        </script>
+                        {% endif %}
+                        {% endfor %}
+                    </form>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</main>
+
+
+
+
+<script>
+    function MonthSwith(value) {
+        var link = document.getElementById('swithMonthLink');
+        var year = document.getElementById('year-swith_id').value
+        link.setAttribute('href', `?monthSwitch=${value}&yearSwitch=${year}`);
+        link.click();
+    }
+</script>
+<script>
+    function YearSwith(value) {
+        var link = document.getElementById('swithMonthLink');
+        var month = document.getElementById('month-swith_id').value
+        link.setAttribute('href', `?monthSwitch=${month}&yearSwitch=${value}`);
+        link.click();
+    }
+</script>
+<script>
+    function Today() {
+        location = '/calendar'
+    }
+</script>
+
+<script>
+    window.addEventListener('load', () => {
+
+        document.getElementById("today").scrollIntoView();
+
+
+    });
+</script>
+
+
+
+
+
+{% endblock %}

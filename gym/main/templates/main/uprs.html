@@ -1,0 +1,244 @@
+{% extends 'main/main.html' %}
+{% load my_filters %}
+
+
+
+{% block main %}
+
+
+<!-- {% for tren in trens %}
+{{tren}}
+{% endfor %} -->
+<div class="container-fluid">
+    <div class="row">
+        <div id="groupId" style="display: none;">{{group.id}}</div>
+        <div class="col-lg-4 offset-lg-4" style="text-align: center;">
+    
+  <select id="selectGroup" class="form-select" aria-label="Default select example" style="margin-top: 5rem;">
+    <option selected>{{group.group}}</option>
+    {% for choice in group_choice %}
+    {% if choice.name != group.group %}
+    <option value="{{choice}}">{{choice}}</option>
+    {% endif %}
+    {% endfor %}
+  </select>
+  {% for tren in trenirovka %}
+  <button name="{{tren.id}}" value="close" onclick="Open(this)" class="btn btn-calendar btn-calendar-tren">
+    {{tren}}  
+  </button><br>
+  <div id="div-{{tren.id}}" class="container-fluid" style="display: none;">
+  <p><button class="btn btn-link" value="{{tren.id}}" onclick="maxWeight(this.value)" id="maxWeight-{{tren.id}}">Максимальный вес</button> - <input id="maxWeightInput-{{tren.id}}" type="text" style="width: 3rem; margin-top: 1rem;" value="{{tren.max_weight}}" disabled></p>
+  <p>{% if tren.level == '0' %}Уровень: легкий{% elif tren.level == '1' %}Уровень: средний{% elif tren.level == '2' %}Уровень: сложный{% else %}Проходка{% endif %}</p>
+  <p class="block block-label">Разминка:</p>
+  <p class="block">Подходов - {{tren.amount1}}</p>
+  <p class="block">Повторений - {{tren.povtor1}}</p>
+  <p class="block">Вес - {% if tren.level == '0' %}{{tren.max_weight|razminka1}}{% elif tren.level == '1' %}
+    {{tren.max_weight|razminka2}}{% elif tren.level == '2' %}{{tren.max_weight|razminka3}}{% else %}{{tren.max_weight|razminka1}}{% endif %}</p>
+  <p class="block block-label">Тренировка:</p>
+  <p class="block">Подходов - {{tren.amount2}}</p>
+  <p class="block">Повторений - {{tren.povtor2}}</p>
+  <p class="block">Вес - {% if tren.level == '0' %}{{tren.max_weight|tren1}}{% elif tren.level == '1' %}
+    {{tren.max_weight|tren2}}{% elif tren.level == '2' %}{{tren.max_weight|tren3}}{% else %}{{tren.max_weight}}{% endif %}</p><br><br>
+  <select id="{{tren.id}}" name="status" onclick="Status(this.id)" class="form-select" aria-label="Default select example">
+    {% if tren.status == '0' %}<option selected value="0">Не выполнено</option>{% elif tren.status == '1' %}<option selected value="1">Выполнено</option>{% endif %}
+
+    {% if tren.status == '0' %}<option value="1">Выполнено</option>{% elif tren.status == '1' %}<option value="0">Не выполнено</option>{% endif %}
+  </select>
+    <button class="btn btn-danger btn-danger-close btn-danger-close-yes" name="DeleteUpr" id="DeleteUpr-{{tren.id}}" onclick="DeleteUpr(this.value)" value="{{tren.id}}"><i
+        class="fa-solid fa-trash fa-2xl" style="color: #a73535;"></i></button>
+</div>
+<!-- <div id="trenId" style="display: none;">{{tren.id}}</div> -->
+  {% endfor %}
+  <div id="testText" style="margin-top: 2rem;">
+    <select id="selectUpr1" class="form-select" aria-label="Default select example">
+        <option selected>Добавить упражнение</option>
+        {% for upr in uprs %}
+        <option value="{{upr}}">{{upr}}</option>
+        {% endfor %}
+      </select>
+    <div id="date" style="display: none;">{{date}}</div>
+      
+      <script>
+        $("#selectUpr1").change(function (){
+    $.ajax({
+    
+        type: 'GET',
+        url: '/ajax',
+        data: {
+            'newUpr': $("#selectUpr1").val(),
+            'date': $("#date").text(),
+            
+        },
+        dataType: 'text',
+        cache: false,
+        success: function (data) {
+            window.location.reload();
+    
+        }
+    });
+    });
+    </script>
+
+<script>
+    function DeleteUpr(id){
+        var obj = document.getElementById(`DeleteUpr-${id}`);
+        obj.setAttribute('onclick', 'DeleteUprOn(this.value)');
+        setTimeout( ()=>{
+            obj.setAttribute('onclick', 'DeleteUpr(this.value)');
+
+        }, 3000 )
+    }
+</script>
+
+
+      <script>
+        function DeleteUprOn(id){
+
+    $.ajax({
+    
+        type: 'GET',
+        url: '/ajax',
+        data: {
+            'DeleteUpr': id,
+            
+        },
+        dataType: 'text',
+        cache: false,
+        success: function (data) {
+            window.location.reload();
+    
+        }
+    });
+        }
+    </script>
+
+  </div>
+
+  
+</div>
+</div>
+</div>
+<div id="dateq" style="display: none;">{{date}}</div>
+<script src="/static/js/ajax.js"></script>
+
+<script>
+    $("#selectGroup").change(function (){
+$.ajax({
+
+    type: 'GET',
+    url: '/ajax',
+    data: {
+        'uprs': $("#selectGroup").val(),
+        'date': $("#dateq").text(), 
+        'id': $("#groupId").text()
+    },
+    dataType: 'text',
+    cache: false,
+    success: function (data) {
+        $("#testText").html(data);
+        console.log('ok')
+
+    }
+
+
+
+
+
+
+});
+});
+</script>
+<script>
+
+function Status(id){
+    var me = $(`#${id}`)
+$.ajax({
+
+    type: 'GET',
+    url: '/ajax',
+    data: {
+        'status': me.val(),
+        'id': id
+    },
+    dataType: 'text',
+    cache: false,
+    success: function (data) {
+
+        window.location.reload();
+
+    }
+
+
+
+
+
+
+});
+}
+</script>
+
+
+
+
+<script>
+    function Open(obj){
+
+            document.getElementById(`div-${obj.name}`).setAttribute('style', '');
+            obj.setAttribute('onclick', 'Close(this)');
+
+
+    }
+</script>
+<script>
+    function Close(obj){
+
+            document.getElementById(`div-${obj.name}`).setAttribute('style', 'display: none');
+            obj.setAttribute('onclick', 'Open(this)');
+
+
+    }
+</script>
+
+
+<script>
+    function maxWeight(id){
+        var obj = document.getElementById(`maxWeight-${id}`) 
+        document.getElementById(`maxWeightInput-${id}`).removeAttribute('disabled');
+
+        obj.setAttribute('onclick', 'GetId(this.value)');
+
+        
+
+
+    }
+
+</script>
+
+
+<script>
+    function GetId(id){
+        
+        $.ajax({
+
+type: 'GET',
+url: '/ajax',
+data: {
+    'maxWeight': $(`#maxWeightInput-${id}`).val(),
+    'id': id
+},
+dataType: 'text',
+cache: false,
+success: function (data) {
+    if (data == 'nodigit'){
+        $(`#maxWeighInput-${id}`).val('Только число');
+    }
+    else {
+        document.getElementById(`maxWeightInput-${id}`).setAttribute('disabled', 'true');
+        window.location.reload();
+    }
+
+}
+});
+    }
+</script>
+{% endblock %}

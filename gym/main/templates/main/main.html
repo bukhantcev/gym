@@ -1,0 +1,44 @@
+
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main</title>
+    <link rel="stylesheet" href="/static/css/bootstrap5.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+
+<body>
+    <header class="header">
+        {% block header %}
+        {% include 'main/header.html' %}
+        {% endblock %}
+    </header>
+<main>
+
+           {% block main %}
+           <script src="/static/js/jquery.js"></script>
+            <script src="/static/js/bootstrap5.js"></script>
+            <script src="/static/js/icon_awesome.js"></script>
+            <script src="https://telegram.org/js/telegram-web-app.js"></script>
+            <script src="/static/js/ajax.js"></script>
+           {% endblock %}
+
+</main>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

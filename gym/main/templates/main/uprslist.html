@@ -1,0 +1,35 @@
+
+
+<select id="selectUpr" class="form-select" aria-label="Default select example">
+    <option selected>Добавить упражнение</option>
+    {% for upr in uprs %}
+    <option value="{{upr}}">{{upr}}</option>
+    {% endfor %}
+  </select>
+<div id="date" style="display: none;">{{date}}</div>
+  
+  <script>
+    $("#selectUpr").change(function (){
+$.ajax({
+
+    type: 'GET',
+    url: '/ajax',
+    data: {
+        'newUpr': $("#selectUpr").val(),
+        'date': $("#date").text()
+    },
+    dataType: 'text',
+    cache: false,
+    success: function (data) {
+        window.location.reload();
+
+    }
+
+
+
+
+
+
+});
+});
+</script>
