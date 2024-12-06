@@ -53,6 +53,10 @@ a {
     scroll-margin: 6rem;
 }
 
+.header_img:hover {
+    width: 147px !important;
+}
+
 /* BUTTON */
 .form-select-castom {
     width: auto;
@@ -110,6 +114,9 @@ a {
 
 }
 
+.btn-primary {
+    background-color: #4848b2;
+}
 /* TEXT */
 .title-cal {
     text-align: center;

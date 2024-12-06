@@ -17,7 +17,7 @@ def main(request):
     context = {
 
     }
-    return render(request, 'main/welkom.html' if request.user.is_staff else 'main/main.html', context=context)
+    return render(request, 'main/welkom.html', context=context) if request.user.is_authenticated else redirect('register')
 
 
 
@@ -139,7 +139,7 @@ def calendar_view(request):
                 pass
 
 
-    return render(request, 'main/calendar.html' if request.user.is_staff else 'main/main.html', context=context)
+    return render(request, 'main/calendar.html', context=context) if request.user.is_authenticated else redirect('register')
 
 
 
@@ -220,4 +220,4 @@ def uprs(request):
                 return HttpResponse('nodigit', content_type='text/html')
 
 
-    return render(request, 'main/uprs.html' if request.user.is_staff else 'main/main.html', context)
+    return render(request, 'main/uprs.html', context) if request.user.is_authenticated else redirect('register')
