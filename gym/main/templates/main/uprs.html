@@ -23,20 +23,21 @@
     {% endfor %}
   </select>
   {% for tren in trenirovka %}
+  {% if tren.user == request.user %}
   <button name="{{tren.id}}" value="close" onclick="Open(this)" class="btn btn-calendar btn-calendar-tren">
     {{tren}}  
   </button><br>
   <div id="div-{{tren.id}}" class="container-fluid" style="display: none;">
   <p><button class="btn btn-link" value="{{tren.id}}" onclick="maxWeight(this.value)" id="maxWeight-{{tren.id}}">Максимальный вес</button> - <input id="maxWeightInput-{{tren.id}}" type="text" style="width: 3rem; margin-top: 1rem;" value="{{tren.max_weight}}" disabled></p>
   <p>{% if tren.level == '0' %}Уровень: легкий{% elif tren.level == '1' %}Уровень: средний{% elif tren.level == '2' %}Уровень: сложный{% else %}Проходка{% endif %}</p>
-  <p class="block block-label">Разминка:</p>
-  <p class="block">Подходов - {{tren.amount1}}</p>
+  <p class="block block-label">Разминка:{{ tren.level }}</p>
+  <p class="block">Подходов - {% if tren.level == '0' %}{{tren.amount1}}{% elif tren.level == '1' %}{{tren.amount1|razm_podhod1}}{% elif tren.level == '2' %}{{tren.amount1|razm_podhod2}}{% elif tren.level == '3' %}{{tren.amount1|razm_podhod3}}{% endif %}</p>
   <p class="block">Повторений - {{tren.povtor1}}</p>
   <p class="block">Вес - {% if tren.level == '0' %}{{tren.max_weight|razminka1}}{% elif tren.level == '1' %}
     {{tren.max_weight|razminka2}}{% elif tren.level == '2' %}{{tren.max_weight|razminka3}}{% else %}{{tren.max_weight|razminka1}}{% endif %}</p>
   <p class="block block-label">Тренировка:</p>
-  <p class="block">Подходов - {{tren.amount2}}</p>
-  <p class="block">Повторений - {{tren.povtor2}}</p>
+  <p class="block">Подходов - {% if tren.level == '0' %}{{tren.amount2}}{% elif tren.level == '1' %}{{tren.amount2|tren_podhod1}}{% elif tren.level == '2' %}{{tren.amount2|tren_podhod2}}{% elif tren.level == '3' %}1{% endif %}</p>
+  <p class="block">Повторений - {% if tren.level == '0' %}{{tren.povtor2}}{% elif tren.level == '1' %}{{tren.povtor2|tren_povtor1}}{% elif tren.level == '2' %}{{tren.povtor2|tren_povtor2}}{% elif tren.level == '3' %}1{% endif %}</p>
   <p class="block">Вес - {% if tren.level == '0' %}{{tren.max_weight|tren1}}{% elif tren.level == '1' %}
     {{tren.max_weight|tren2}}{% elif tren.level == '2' %}{{tren.max_weight|tren3}}{% else %}{{tren.max_weight}}{% endif %}</p><br><br>
   <select id="{{tren.id}}" name="status" onchange="Status(this.id)" class="form-select" aria-label="Default select example">
@@ -48,7 +49,8 @@
         class="fa-solid fa-trash fa-2xl" style="color: #a73535;"></i></button>
 </div>
 <!-- <div id="trenId" style="display: none;">{{tren.id}}</div> -->
-  {% endfor %}
+ {% endif %} 
+{% endfor %}
   <div id="testText" style="margin-top: 2rem;">
     <select id="selectUpr1" class="form-select" aria-label="Default select example">
         <option selected>Добавить упражнение</option>

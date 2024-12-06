@@ -26,7 +26,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col d-flex justify-content-center" style="margin-top: 2rem;">
-                <!-------------------MONTH-BUTTON----------->
+                {% comment %} <!-------------------MONTH-BUTTON-----------> {% endcomment %}
                 <select name="month-swith" id="month-swith_id" style="margin-right: 1rem;"
                     onchange="MonthSwith(this.value)" class="form-select form-select-castom btn-primary"
                     aria-label="Default select example">
@@ -46,10 +46,10 @@
 
 
                 </select>
-                <!-------------------MONTH-BUTTON----------->
+                {% comment %} <!-------------------MONTH-BUTTON-----------> {% endcomment %}
 
 
-                <!-------------------YEAR-BUTTON----------->
+                {% comment %} <!-------------------YEAR-BUTTON-----------> {% endcomment %}
                 <select name="year-swith" id="year-swith_id" onchange="YearSwith(this.value)"
                     class="form-select form-select-castom form-select-castom-small btn-primary"
                     aria-label="Default select example">
@@ -69,7 +69,7 @@
 
 
                 </select>
-                <!-------------------YEAR-BUTTON----------->
+                {% comment %} <!-------------------YEAR-BUTTON-----------> {% endcomment %}
             </div>
         </div>
     </div>
@@ -102,6 +102,7 @@
 
                                         {% for tren in trenya %}
                                         {% if day.date == tren.date %}
+                                        {% if tren.user == request.user %}
                                         <a
                                             href="{% url 'uprs' %}?addUpr={{day.date|date:'Y-m-d'}}&group={{tren.group}}&id={{tren.id}}"><button
                                                 id="{{tren.group}}" name="addUpr" value="{{tren.date}}" type="button"
@@ -139,6 +140,7 @@
                                 }, 3000)
                             }
                         </script>
+                        {% endif %}
                         {% endif %}
                         {% endfor %}
                     </form>

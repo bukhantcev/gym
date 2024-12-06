@@ -1,7 +1,9 @@
 from email.policy import default
 
 import django.utils.timezone
+from django.contrib.auth.models import User
 from django.db import models
+
 
 
 
@@ -18,6 +20,7 @@ class Groups(models.Model):
 class TrenirovkaGroup(models.Model):
     group = models.ForeignKey(Groups, on_delete=models.CASCADE)
     date = models.DateField(verbose_name='Дата тренировки', default=django.utils.timezone.now())
+    user = models.ForeignKey(verbose_name='User', to=User, default='1', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.date) + str(self.group)
@@ -74,6 +77,7 @@ class Trenirovka(models.Model):
     amount2 = models.IntegerField(verbose_name='Количество подходов тренировка', default=4)
     level = models.CharField(choices=Levels.choices, default=Levels.LEVEL1, max_length=50)
     status = models.CharField(choices=Status.choices, default=Status.STATUS1, max_length=50)
+    user = models.ForeignKey(verbose_name='User', to=User, default='1', on_delete=models.CASCADE)
     def __str__(self):
         return str(self.name)
 
