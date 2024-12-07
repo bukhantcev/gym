@@ -30,7 +30,7 @@
   <div id="div-{{tren.id}}" class="container-fluid" style="display: none;">
   <p><button class="btn btn-link" value="{{tren.id}}" onclick="maxWeight(this.value)" id="maxWeight-{{tren.id}}">Максимальный вес</button> - <input id="maxWeightInput-{{tren.id}}" type="text" style="width: 3rem; margin-top: 1rem;" value="{{tren.max_weight}}" disabled></p>
   <p>{% if tren.level == '0' %}Уровень: легкий{% elif tren.level == '1' %}Уровень: средний{% elif tren.level == '2' %}Уровень: сложный{% else %}Проходка{% endif %}</p>
-  <p class="block block-label">Разминка:{{ tren.level }}</p>
+  <p class="block block-label">Разминка:</p>
   <p class="block">Подходов - {% if tren.level == '0' %}{{tren.amount1}}{% elif tren.level == '1' %}{{tren.amount1|razm_podhod1}}{% elif tren.level == '2' %}{{tren.amount1|razm_podhod2}}{% elif tren.level == '3' %}{{tren.amount1|razm_podhod3}}{% endif %}</p>
   <p class="block">Повторений - {{tren.povtor1}}</p>
   <p class="block">Вес - {% if tren.level == '0' %}{{tren.max_weight|razminka1}}{% elif tren.level == '1' %}
