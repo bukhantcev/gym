@@ -1,0 +1,39 @@
+
+
+
+{% for fields in form_setting %}
+<div class="row">
+  <div class="col-lg-4 offset-lg-2 d-flex justify-content-start">
+    {{fields.label}}
+  </div>
+  <div class="col-lg-4 d-flex justify-content-start">
+    {{fields}}<br>
+  </div>
+</div>
+{% endfor %}
+
+<button class="btn btn-primary" onclick="PostForm(this.value)" value="{{setting_id}}" style="margin-top: 2rem;" name="setting_save" id="{{setting_id}}">Сохранить</button>
+
+
+ <!-- <script>
+function PostForm(id){
+  $(`form-${id}`).on("submit", function (event) {
+    event.preventDefault();
+$.ajax({
+
+    type: 'GET',
+    url: '/ajax',
+    data: {
+        'test': 'blabla'
+    },
+    dataType: 'text',
+    cache: false,
+    success: function (data) {
+        console.log('dfgdsg');
+
+    }
+});
+});
+};
+
+</script> -->

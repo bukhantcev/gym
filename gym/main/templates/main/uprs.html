@@ -45,10 +45,35 @@
 
     {% if tren.status == '0' %}<option value="1">Выполнено</option>{% elif tren.status == '1' %}<option value="0">Не выполнено</option>{% endif %}
   </select>
+  <button id="form_setting_btn" onclick="Setting(this.value)" value="{{tren.id}}" class="btn btn-danger btn-danger-close btn-danger-close-yes" type="button" data-bs-toggle="offcanvas" data-bs-target="#tren-{{tren.id}}" aria-controls="offcanvasTop"><i class="fa-solid fa-gear fa-2xl" style="color: #1e30cc;"></i></button>
     <button class="btn btn-danger btn-danger-close btn-danger-close-yes" name="DeleteUpr" id="DeleteUpr-{{tren.id}}" onclick="DeleteUpr(this.value)" value="{{tren.id}}"><i
         class="fa-solid fa-trash fa-2xl" style="color: #a73535;"></i></button>
 </div>
-<!-- <div id="trenId" style="display: none;">{{tren.id}}</div> -->
+
+{% comment %} OFFCANVAS SETTING {% endcomment %}
+
+
+
+<div class="offcanvas offcanvas-top" tabindex="-1" id="tren-{{tren.id}}" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasTopLabel" style="color: #eea632;">Настройки упражнения</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <form action="" id="form-{{tren.id}}" method="post">
+    {% csrf_token %} 
+  <div id="form_setting-{{tren.id}}" class="offcanvas-body">
+
+
+  </div>
+  <button class="btn btn-primary" value="{{setting_id}}" type="button" id="{{setting_id}}" data-bs-dismiss="offcanvas" aria-label="Close">Отменить</button>
+
+
+</form>
+
+</div>
+
+
+
  {% endif %} 
 {% endfor %}
   <div id="testText" style="margin-top: 2rem;">
@@ -59,6 +84,9 @@
         {% endfor %}
       </select>
     <div id="date" style="display: none;">{{date}}</div>
+
+
+
       
       <script>
         $("#selectUpr1").change(function (){
@@ -141,15 +169,31 @@ $.ajax({
         console.log('ok')
 
     }
-
-
-
-
-
-
 });
 });
 </script>
+
+<script>
+    function Setting(id){
+$.ajax({
+
+    type: 'GET',
+    url: '/ajax',
+    data: { 
+        'setting': id
+    },
+    dataType: 'text',
+    cache: false,
+    success: function (data) {
+        $(`#form_setting-${id}`).html(data);
+        console.log('ok')
+
+    }
+});
+};
+</script>
+
+
 <script>
 
 function Status(id){

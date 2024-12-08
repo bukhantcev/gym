@@ -49,12 +49,23 @@ a {
 
 }
 
+.offcanvas-header {
+    background-color: #4848b2;
+    text-align: center;
+}
+
 .headeer-calendar-today {
     scroll-margin: 6rem;
 }
 
 .header_img:hover {
     width: 147px !important;
+}
+
+.offcanvas-top {
+    min-height: 100%;
+    font-family: "Roboto-Italic";
+    background-color: #b6b6c0;
 }
 
 /* BUTTON */

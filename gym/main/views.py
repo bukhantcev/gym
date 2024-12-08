@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import length
 
-from .forms import UpragForm
+from .forms import UpragForm, TrenForm
 from .models import Upragneniya, Trenirovka, TrenirovkaGroup, Groups
 from .calendar_fill import fill_cal
 from datetime import datetime
@@ -166,6 +166,7 @@ def uprs(request):
             context['group_choice'] = Groups.objects.all()
             context['date'] = request.GET['addUpr']
             context['trenirovka'] = trenirovka
+
         if 'uprs' in request.GET:
             print(request.GET)
             context['uprs'] = Upragneniya.objects.filter(group=Groups.objects.get(name=request.GET['uprs']))
@@ -218,6 +219,33 @@ def uprs(request):
                 return render(request, 'main/uprslist.html', context)
             else:
                 return HttpResponse('nodigit', content_type='text/html')
+
+
+        if 'setting' in request.GET:
+            context['form_setting'] = TrenForm(instance=Trenirovka.objects.get(id=request.GET['setting']))
+            context['setting_id'] = request.GET['setting']
+            print(context)
+            return render(request, 'main/form_setting.html', context)
+    if request.POST:
+        if 'setting_save' in request.POST:
+            try:
+                new_tren = Trenirovka.objects.get(id=request.POST['setting_save'])
+                new_tren.name = Upragneniya.objects.get(id=request.POST['name'])
+                new_tren.group = Groups.objects.get(id=request.POST['group'])
+                new_tren.max_weight = request.POST['max_weight']
+                new_tren.amount1 = request.POST['amount1']
+                new_tren.amount2 = request.POST['amount2']
+                new_tren.povtor1 = request.POST['povtor1']
+                new_tren.povtor2 = request.POST['povtor2']
+                new_tren.level = request.POST['level']
+                new_tren.save()
+            except:
+                pass
+
+
+
+
+
 
 
     return render(request, 'main/uprs.html', context) if request.user.is_authenticated else redirect('register')

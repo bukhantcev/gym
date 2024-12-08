@@ -68,14 +68,14 @@ class Trenirovka(models.Model):
         STATUS1 = '0', 'Не выполнено'
         STATUS2 = '1', 'Выполнено'
     date = models.DateField(verbose_name='Дата тренировки', default=django.utils.timezone.now())
-    name = models.ForeignKey(to=Upragneniya, on_delete=models.CASCADE)
+    name = models.ForeignKey(to=Upragneniya, on_delete=models.CASCADE, verbose_name='Название упражнения')
     group = models.ForeignKey(to=Groups, on_delete=models.CASCADE, default='1', verbose_name='Группы мышц')
     max_weight = models.CharField(max_length=100, default='0', verbose_name='Максимальный вес')
     amount1 = models.IntegerField(verbose_name='Количество подходов разминка', default=2)
     povtor1 = models.IntegerField(verbose_name='Количество повторений разминка', default=6)
     povtor2 = models.IntegerField(verbose_name='Количество повторений тренировка', default=4)
     amount2 = models.IntegerField(verbose_name='Количество подходов тренировка', default=4)
-    level = models.CharField(choices=Levels.choices, default=Levels.LEVEL1, max_length=50)
+    level = models.CharField(choices=Levels.choices, default=Levels.LEVEL1, max_length=50, verbose_name='Уровень сложности')
     status = models.CharField(choices=Status.choices, default=Status.STATUS1, max_length=50)
     user = models.ForeignKey(verbose_name='User', to=User, default='1', on_delete=models.CASCADE)
     def __str__(self):
