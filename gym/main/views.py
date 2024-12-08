@@ -119,7 +119,7 @@ def calendar_view(request):
                                 new_upr.level = str(int(upr.level) + 1)
                         new_upr.status = '0'
                         new_upr.user = User.objects.get(id=request.user.id)
-                        print(new_upr.user)
+
                         new_upr.save()
                 except:
                     pass
@@ -168,7 +168,6 @@ def uprs(request):
             context['trenirovka'] = trenirovka
 
         if 'uprs' in request.GET:
-            print(request.GET)
             context['uprs'] = Upragneniya.objects.filter(group=Groups.objects.get(name=request.GET['uprs']))
             context['date'] = request.GET['date']
             change_group = TrenirovkaGroup.objects.filter(user=user).get(id=request.GET['id'])
@@ -224,7 +223,6 @@ def uprs(request):
         if 'setting' in request.GET:
             context['form_setting'] = TrenForm(instance=Trenirovka.objects.get(id=request.GET['setting']))
             context['setting_id'] = request.GET['setting']
-            print(context)
             return render(request, 'main/form_setting.html', context)
     if request.POST:
         if 'setting_save' in request.POST:
