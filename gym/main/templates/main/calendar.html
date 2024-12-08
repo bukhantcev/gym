@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col order-last order-sm-first calendar-header-title">
-            <a href="#" style="text-decoration: none;" onclick="Today()">
+            <a type="button" style="text-decoration: none;" onclick="Admin1(this)">
                 <h1 class="title-cal">Календарь</h1>
             </a>
         </div>
@@ -191,8 +191,41 @@
     });
 </script>
 
+<script>
+    function Admin1(me) {
+        me.setAttribute('onclick', 'Admin2(this)');
+        setTimeout( ()=>{
+            me.setAttribute('onclick', 'Admin1(this)');
+        }, 1000 );
+    }
+</script>
+<script>
+    function Admin2(me) {
+        me.setAttribute('onclick', 'Admin3(this)');
+        setTimeout( ()=>{
+            me.setAttribute('onclick', 'Admin2(this)');
+        }, 1000 );
+    }
+</script>
+<script>
+    function Admin3(me) {
+        me.setAttribute('onclick', 'Admin4(this)');
+        setTimeout( ()=>{
+            me.setAttribute('onclick', 'Admin3(this)');
+        }, 1000 );
+    }
+</script>
+<script>
+    function Admin4(me) {
+        me.setAttribute('onclick', 'Admin5(this)');
+        me.setAttribute('href', 'admin');
 
-
+        setTimeout( ()=>{
+            me.setAttribute('onclick', 'Admin4(this)');
+            me.removeAttribute('href');
+        }, 1000 );
+    }
+</script>
 
 
 {% endblock %}
