@@ -26,3 +26,20 @@ class TrenForm(forms.ModelForm):
             'level': forms.Select(attrs={'class': 'form-control'}),
 
         }
+
+class UprsForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['group'].empty_label = 'Выберите группу'
+
+    class Meta:
+
+        model = Upragneniya
+        fields = ('__all__')
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите название'}),
+            'group': forms.Select(attrs={'class': 'form-control'}),
+            'group_muscular': forms.Select(attrs={'class': 'form-control'}),
+
+
+        }

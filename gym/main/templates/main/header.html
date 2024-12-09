@@ -7,7 +7,24 @@
 <div class="container-fluid header-fix">
     <a href="/calendar" style="text-decoration: none;"><img class="header_img" src="/static/media/girogon.png" style=" width: 145px; display: inline-block;" alt="">
     </a>
+    <button class="btn btn-link btn-link-custom" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainMenu" aria-controls="offcanvasRight" style="float: right;"><i class="fa-solid fa-bars fa-xl"></i></button>
 
+</div>
+
+
+<!-- offcanvas -->
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="mainMenu" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel" class="title-menu" >Меню</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+   <ul>
+    <li class="menu-items"><button  onclick="location='creat_uprs'" class="btn btn-calendar">Создать упражнение</button></li>
+   </ul>
+  </div>
 </div>
 
 {% endblock %}

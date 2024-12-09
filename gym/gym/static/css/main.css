@@ -61,11 +61,23 @@ a {
 .header_img:hover {
     width: 147px !important;
 }
+.header_img {
+    padding-left: 47px;
+}
 
 .offcanvas-top {
     min-height: 100%;
     font-family: "Roboto-Italic";
     background-color: #b6b6c0;
+}
+.offcanvas-end {
+    font-family: "Roboto-Italic";
+    background-color: #b6b6c0;
+}
+
+.creat_uprs-container {
+    position: relative;
+    top: 100px;
 }
 
 /* BUTTON */
@@ -128,6 +140,13 @@ a {
 .btn-primary {
     background-color: #4848b2;
 }
+
+.btn-link-custom {
+    color: #eea632;
+}
+.menu-items {
+    list-style: none;
+}
 /* TEXT */
 .title-cal {
     text-align: center;
@@ -146,5 +165,12 @@ a {
 .block {
 
     margin-bottom: 0;
+}
+.title-menu {
+    color: #eea632;
+}
+.title-menu-success {
+    text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+    text-align: center;
 }
 /* CALENDAR */

@@ -1,0 +1,27 @@
+{% extends 'main/main.html' %}
+{% load my_filters %}
+
+
+
+{% block main %}
+
+
+
+<div class="container-fluid creat_uprs-container">
+    <h1 class="title-menu title-menu-success">Упражнение успешно создано</h1>
+</div>
+
+
+<script>
+    window.addEventListener('load', () => {
+
+        setTimeout( ()=>{
+            location='calendar';
+        }, 1500 );
+
+
+    });
+</script>
+
+
+{% endblock %}

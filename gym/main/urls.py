@@ -7,4 +7,5 @@ urlpatterns = [
     path('calendar', views.calendar_view, name='calendar'),
     path('calendar/uprs', views.uprs, name='uprs'),
     path('ajax', views.uprs, name='uprs'),
+    path('creat_uprs', views.creat_uprs, name='creat_uprs'),
 ]

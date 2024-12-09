@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import length
 
-from .forms import UpragForm, TrenForm
+from .forms import UpragForm, TrenForm, UprsForm
 from .models import Upragneniya, Trenirovka, TrenirovkaGroup, Groups
 from .calendar_fill import fill_cal
 from datetime import datetime
@@ -247,3 +247,17 @@ def uprs(request):
 
 
     return render(request, 'main/uprs.html', context) if request.user.is_authenticated else redirect('register')
+
+def creat_uprs(request):
+    form = UprsForm()
+    context = {
+        'form': form,
+        'test': 'zalupa',
+    }
+    if request.POST:
+        if 'creat_uprs' in request.POST:
+            form = UprsForm(request.POST)
+            form.save()
+            return render(request, 'main/creat_uprs_success.html')
+
+    return render(request, 'main/creat_uprs.html', context=context)

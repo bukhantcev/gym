@@ -43,10 +43,10 @@ class Upragneniya(models.Model):
 
 
 
-    name = models.CharField(max_length=300, default='Без названия', verbose_name='Название упражнения')
+    name = models.CharField(max_length=300, verbose_name='Название упражнения')
 
-    group = models.ForeignKey(Groups, on_delete=models.CASCADE)
-    group_muscular = models.CharField(choices=GroupMuscular.choices, default=GroupMuscular.GROUP1, max_length=100)
+    group = models.ForeignKey(Groups, on_delete=models.CASCADE, verbose_name='Группа мышц')
+    group_muscular = models.CharField(choices=GroupMuscular.choices, max_length=100, verbose_name='Таргет')
 
     def __str__(self):
         return str(self.name)
