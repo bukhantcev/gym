@@ -15,7 +15,14 @@
 <body>
     <header class="header">
         {% block header %}
+        {% url 'register' as register %}
+        {% url 'login' as login %}
+        {% url 'creat_uprs' as creat_uprs %}
+        {% if request.path == register or request.path == login or request.path == creat_uprs%}
+        {% include 'main/header_start.html' %}
+        {% else %}
         {% include 'main/header.html' %}
+        {% endif %}
         {% endblock %}
     </header>
 <main>
