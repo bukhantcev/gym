@@ -10,7 +10,7 @@ load_dotenv()
 YANDEX_DISK_URL = "https://webdav.yandex.ru"
 YANDEX_LOGIN = os.getenv("YANDEX_LOGIN")
 YANDEX_PASSWORD = os.getenv("YANDEX_PASSWORD")
-DB_PATH = "db.sqlite3"  # Путь к базе
+DB_PATH = "/root/gym/gym/db.sqlite3"  # Путь к базе
 BACKUP_FOLDER = "backups"  # Папка на Яндекс.Диске
 MAX_BACKUPS = 30  # Сколько бэкапов хранить
 
