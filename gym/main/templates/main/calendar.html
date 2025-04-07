@@ -228,4 +228,35 @@
 </script>
 
 
+
+
+
+{% comment %} <canvas id="lineChart"></canvas>
+
+  <script>
+    // Настройка данных для графика
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    const lineChart = new Chart(ctx, {
+      type: 'line',  // Тип графика (линейный)
+      data: {
+        labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],  // Метки на оси X
+        datasets: [{
+          label: 'Продажи (в тыс. ед.)',
+          data: [10, 20, 30, 40, 50, 60],  // Данные для графика
+          borderColor: 'rgba(75, 192, 192, 1)',  // Цвет линии
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Цвет фона линии (заливка под графиком)
+          fill: true,  // Заполнение области под графиком
+          tension: 0.1  // Степень сглаживания линии
+        }]
+      },
+      options: {
+        responsive: true,  // Адаптивность графика
+        scales: {
+          y: {
+            beginAtZero: true  // Ось Y начинается с нуля
+          }
+        }
+      }
+    });
+  </script> {% endcomment %}
 {% endblock %}
